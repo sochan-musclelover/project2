@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Idea Generator</title>
+</head>
+<body>
+    <h1>Idea Generator</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Generate</button>
+    </form>
+    {% if idea %}
+        <h2>Generated Idea</h2>
+        <p>{{ idea }}</p>
+        {% if csv_path %}
+        <p>Result saved to: {{ csv_path }}</p>
+        {% endif %}
+    {% endif %}
+    <h2>Past Generation Jobs</h2>
+    <table border="1">
+        <tr>
+            <th>Job ID</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Result File</th>
+            <th>Count</th>
+            <th>Ideas</th>
+        </tr>
+        {% for job_id, started_at, finished_at, result_file, generate_count in jobs %}
+        <tr>
+            <td>{{ job_id }}</td>
+            <td>{{ started_at }}</td>
+            <td>{{ finished_at }}</td>
+            <td>{{ result_file }}</td>
+            <td>{{ generate_count }}</td>
+            <td><a href="/project2/top/list?job_id={{ job_id }}">View Ideas</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No jobs found.</td></tr>
+        {% endfor %}
+    </table>
+    <p><a href="/project2/top">Back to Top</a></p>
+</body>
+</html>

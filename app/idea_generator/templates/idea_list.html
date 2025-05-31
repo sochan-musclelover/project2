@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Idea List</title>
+</head>
+<body>
+    <h1>Idea List</h1>
+    {% if job_id %}
+        <p>Showing ideas for Job ID: {{ job_id }}</p>
+        <p><a href="/project2/top/list">Show All Ideas</a></p>
+    {% endif %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>XXX</th>
+            <th>YYY</th>
+            <th>ZZZ</th>
+            <th>Idea</th>
+            <th>企画の文章</th>
+            <th>Result File</th>
+            <th>Generated At</th>
+        </tr>
+        {% for id, xxx, yyy, zzz, idea, result_file, generated_at in ideas %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ xxx }}</td>
+            <td>{{ yyy }}</td>
+            <td>{{ zzz }}</td>
+            <td>{{ idea }}</td>
+            <td>
+                {{ xxx }}は{{ yyy }}だと思われているが<br>
+                私は{{ xxx }}は{{ zzz }}だと思っているし、この世界の全てを否定してやる
+            </td>
+            <td>{{ result_file }}</td>
+            <td>{{ generated_at }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">No ideas found.</td></tr>
+        {% endfor %}
+    </table>
+    <p><a href="/project2/top">Back to Top</a></p>
+</body>
+</html>

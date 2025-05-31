@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: sim_web
+    ports:
+      - "8080:80"         # Apache の HTTP ポートをホストの 8080 に割り当て
+      - "5432:5432"       # PostgreSQL のポートをホストに公開（任意）
+    volumes:
+      - ../app:/var/www/project2/app                # Rocky Linux側の/app→/var/www/project2/appに変更
+      - pgdata:/var/lib/pgsql/16/data               # PostgreSQL データディレクトリの永続化
+    environment:
+      POSTGRES_USER: simuser
+      POSTGRES_PASSWORD: simpassword
+      POSTGRES_DB: simulation_db
+    tty: true
+    stdin_open: true
+    privileged: true
+volumes:
+  pgdata:
